@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse # Use this for troubleshooting if you want to see if the route is set up correctly
 
 # Write function index
 def index(request):
