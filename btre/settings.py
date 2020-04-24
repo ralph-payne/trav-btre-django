@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Install humanize for intcomma
+    # https://docs.djangoproject.com/en/3.0/ref/contrib/humanize/
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,36 @@
+/* Edit the header. We know it has an id of header from going from Chrome tools */
+#header {
+    height: 90px;
+    background-color: #10284e; /* dark blue */
+    color: #fff;
+}
+
+/* Take the branding id & go into the h1 */
+#branding h1 {
+    color: #fff;
+}
+
+/* All a link visited */
+a:link,
+a:visited {
+    color: #10284e;
+}
+
+div.breadcrumbs {
+    background-color: #30caa0; /* green */
+    color: #10284e;
+}
+
+div.breadcrumbs a {
+    color: #333;
+}
+
+/* You can find this all out through Chrome Tools and then copying the necessary headers / classNames */
+.module h2, .module caption, .inline-group h2 {
+    background-color: #30caa0; /* green */
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background-color: #10284e;
+    color: #fff;
+}
