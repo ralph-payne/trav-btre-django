@@ -11,5 +11,6 @@ urlpatterns = [
     # <int:listing_id> is the way we will be able access the parameter from within the view method
     path('<int:listing_id>', views.listing, name='listing'),
     # Putting in search means that it will be listings/search. The reason we don't put listings/search here is because we are going to link this to the main urls.py and tell it that anything that has listings/ should look at this file
+    # The path is set up so that when the user lands on the url 'search', the search method will be called
     path('search', views.search, name='search')
 ]

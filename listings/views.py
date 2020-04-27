@@ -3,6 +3,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse # Use this for troubleshooting if you want to see if the route is set up correctly
 
+# Bring in search options (choices.py from the listings folder)
+from .choices import bedroom_choices, price_choices, state_choices
+
 # Bring in the paginator
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
@@ -45,5 +48,69 @@ def listing(request, listing_id):
     return render(request, 'listings/listing.html', context)
 
 def search(request):
-    # render takes in two things: (i) the request itself and (ii) the location of the template
-    return render(request, 'listings/search.html')
+    
+    # Create QuerySet list which we can build onto
+    # class QuerySet(model=None, query=None, using=None, hints=None)
+    # https://docs.djangoproject.com/en/3.0/ref/models/querysets/
+    queryset_list  = Listing.objects.order_by('-list_date')
+
+    # Comment all the fields
+    # Keywords
+    # Check if it exists by  
+    # When you make a request with this form, it is a get request and you can actually test to see if it exists
+    if 'keywords' in request.GET:
+        # If it exists, we create a variable & we get the actual form value
+        # Note that you need square brackets
+        keywords = request.GET['keywords']
+        # We then do another if to check that it is not an empty string
+        if keywords:
+            # Set a filter on our query_set_list and we search the description for any keywords that are typed into the keywords box
+            # We are doing a search that is not an exact match (i.e. we're not looking for alabama = alabama, we're looking for one word inside a block of text)
+            # Therefore, we need to use icontains (icontains is a case-insensitive containment test)
+            # To test, find a word in one of the property descriptions and perform a search on it
+            # Once you've tested successfully, you also are going to need to change <form action="search.html"> to <form action="{% url 'search' %}">
+            # Note that if you now search for nothing, you will get all the listings
+            queryset_list = queryset_list.filter(description__icontains=keywords)
+
+    # 'city' is also a text field, but with city we want to match the exact text string (i.e. we're looking for chicago & we want the exact match. not like when you search for 'pool' in the description field
+    # City
+    if 'city' in request.GET:
+        # Create a variable called city
+        city = request.GET['city']
+        # Check that city is not an empty string
+        if city:
+            # The difference here is that you want an exact match instead of just contains. Ergo, you should use iexact instead of icontains. iexact is a case-insensitive exact match
+            # If you wanted to make it case sensitive, then you should use 'exact' instead of 'iexact'
+            # https://docs.djangoproject.com/en/3.0/ref/models/querysets/
+            # You should now test the localhost:8000 by performing a query for city
+            queryset_list = queryset_list.filter(city__iexact=city)
+
+    # State
+    if 'state' in request.GET:
+        state = request.GET['state']
+        if state:
+            queryset_list = queryset_list.filter(state__iexact=state)
+
+    # Bedrooms
+    if 'bedrooms' in request.GET:
+        bedrooms = request.GET['bedrooms']
+        if bedrooms:
+            queryset_list = queryset_list.filter(bedrooms__lte=bedrooms)
+
+    # Price
+    if 'price' in request.GET:
+        price = request.GET['price']
+        if price:
+            queryset_list = queryset_list.filter(price__lte=price)
+
+    context = {
+        'bedroom_choices': bedroom_choices,
+        'price_choices': price_choices,
+        'state_choices': state_choices,
+        'listings': queryset_list,
+        # Add 'values' as a key and the whole get request is the value. That will mean that the whole get request will be available for us to use in the html template
+        # As an example, if we search for search?keywords=pool&city= then request.get.keywords will be available to us as values.keywords
+        'values': request.GET
+    }
+
+    return render(request, 'listings/search.html', context)

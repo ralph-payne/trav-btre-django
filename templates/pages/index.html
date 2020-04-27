@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-<!-- Load Humanize -->
 {% load humanize %}
 
 {% block content %}
@@ -16,7 +15,7 @@
           <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quas, asperiores eveniet vel nostrum magnam
             voluptatum tempore! Consectetur, id commodi!</p>
           <div class="search">
-            <form action="search.html">
+            <form action="{% url 'search' %}">
               <!-- Form Row 1 -->
               <div class="form-row">
                 <div class="col-md-4 mb-3">
@@ -48,7 +47,7 @@
                     <label class="sr-only">Bedrooms</label>
                     <select name="bedrooms" class="form-control">
                         <option selected="true" disabled="disabled">Bedrooms (All)</option>
-                        <!-- Loop through dictionary -->
+                        <!-- Loop through dictionary imported by the index method in pages/views.py -->
                         {% if bedroom_choices %}
                             {% for key, value in bedroom_choices.items %}
                                 <option value="{{ key }}">{{ value }}</option>
