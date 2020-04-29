@@ -12,7 +12,6 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav">
           
-        <!-- -->
           <li
             {% if '/' == request.path %}
                 class="nav-item active mr-3"
@@ -44,19 +43,61 @@
           </li>
         </ul>
 
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item mr-3">
-            <!-- <a class="nav-link" href="register.html"> -->
-            <a class="nav-link" href="{% url 'register' %}">
-              <i class="fas fa-user-plus"></i> Register</a>
-          </li>
-          <li class="nav-item mr-3">
-            <a class="nav-link" href="{% url 'login' %}">
-              <i class="fas fa-sign-in-alt"></i>
-
-              Login</a>
-          </li>
-        </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li
+                        {% if 'dashboard' in request.path %}
+                            class="nav-item active mr-3"
+                        {% else %}
+                            class="nav-item mr-3"
+                        {% endif %}
+                    >
+                        <a class="nav-link" href="{% url 'dashboard' %}">Welcome, {{ user.username }} (Dashboard)</a>
+                    </li>
+                    
+                        <li class="nav-item mr-3">
+                            <!--    
+                                For the href of the Logout a tag, we want some JavaScript 
+                                When we click the link, the JavaScript will be run.
+                                JavaScript will look for the id of 'logout' and it will submit the form
+                            -->
+                            <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+                                <!-- Logout icon from font-awesome https://fontawesome.com/v4.7.0/icon/sign-out -->
+                                <i class="fas fa-sign-out-alt"></i>Logout
+                            </a>
+                            <!--    
+                               Create the form which takes user to the already create route of logout
+                               This will need a CRSF token
+                            -->
+                            <form action="{% url 'logout' %}" method="POST" id="logout">
+                                {% csrf_token %}
+                                <input type="hidden">
+                            </form>
+                        </li>
+                    
+                {% else %}
+                    <li
+                        {% if 'register' in request.path %}
+                            class="nav-item active mr-3"
+                        {% else %}
+                            class="nav-item mr-3"
+                        {% endif %}
+                    >
+                        <a class="nav-link" href="{% url 'register' %}">
+                            <i class="fas fa-user-plus"></i> Register</a>
+                    </li>
+                    <li
+                        {% if 'login' in request.path %}
+                            class="nav-item active mr-3"
+                        {% else %}
+                            class="nav-item mr-3"
+                        {% endif %}
+                    >
+                        <a class="nav-link" href="{% url 'login' %}">
+                                <i class="fas fa-sign-in-alt"></i>Login</a>
+                    </li>
+                {% endif %}
+            </ul>
       </div>
     </div>
   </nav>

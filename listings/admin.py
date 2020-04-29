@@ -23,4 +23,3 @@ class ListingAdmin(admin.ModelAdmin):
 # Register model
 # def register(self, model_or_iterable, admin_class=None, **options):
 admin.site.register(Listing, ListingAdmin)
-

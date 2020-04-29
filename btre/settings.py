@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'listings.apps.ListingsConfig',
     'realtors.apps.RealtorsConfig',
     'accounts.apps.AccountsConfig',
+    'contacts.apps.ContactsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -143,3 +144,11 @@ STATICFILES_DIRS = [
 MEDIA_PATH = os.path.join(BASE_DIR, 'media')
 #Set media url
 MEDIA_URL = '/media/'
+
+# Messages
+# https://docs.djangoproject.com/en/3.0/ref/contrib/messages/
+# Traversy gets rid of '50: 'critical' and messages.INFO: ''
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}

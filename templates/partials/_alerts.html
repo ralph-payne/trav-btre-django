@@ -1,0 +1,28 @@
+{% if messages %}
+    <!-- If there are messages, we want to loop through them -->
+    {% for single_message in messages %}
+        <!-- Put in Bootstrap Markup -->
+        <div id="message" class="container">
+            <!-- In settings.py, we wrote messages.ERROR: 'danger', therefore we replace alert-danger with alert-{{ message.tags }}-->
+            <!-- We also want to user to be able to dismiss this (close with x), so we add the tag alert-dismissible -->
+            <!-- <div class="alert alert-danger"> -->
+            <div class="alert alert-{{ single_message.tags }} alert-dismissible text-center" role="alert">
+                <!-- As it is a dismissible alert, we need a button -->
+                <!-- data-dismiss is a Bootstrap attribute -->
+                <!-- The entity &times; gives it an 'x' -->
+                <!-- https://getbootstrap.com/docs/4.3/components/alerts/ -->
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                <strong>
+                    {% if single_message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        Error:
+                    {% else %}
+                        {{ messages.tags | title }}
+                    {% endif %}
+                </strong>
+                    <!-- Then we display the message -->
+                    {{ single_message }}
+            </div>
+        </div>
+    {% endfor %}
+
+{% endif %}

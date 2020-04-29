@@ -11,6 +11,6 @@ class Realtor(models.Model):
     email = models.CharField(max_length=50)
     is_mvp = models.BooleanField(default=False) # Check off if they are seller of the month.
     hire_date = models.DateTimeField(default=datetime.now, blank=True)
-    # Just like with listings, we need a main field; This field will be the Realtor's name
+    # Just like with listings, we need a main field. This field will be the Realtor's name
     def __str__(self):
         return self.name

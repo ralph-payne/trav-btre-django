@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %} | User Dashboard {% endblock %}
+
 {% block content %}
 
 <!-- Breadcrumb -->
@@ -8,14 +10,18 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.html">
-              <i class="fas fa-home"></i> Home</a>
+            <!-- <a href="index.html"> -->
+                <a href="{% url 'index' %}">
+                <i class="fas fa-home"></i> Home</a>
           </li>
           <li class="breadcrumb-item active"> Dashboard</li>
         </ol>
       </nav>
     </div>
   </section>
+
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
 
   <section id="dashboard" class="py-4">
     <div class="container">
@@ -60,4 +66,4 @@
     </div>
   </section>
 
-  {% endblock %}
+{% endblock %}

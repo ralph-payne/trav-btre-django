@@ -10,8 +10,9 @@ urlpatterns = [
     path('', include('pages.urls')),
     # Create listing. Anything that is listings slash is going to go to listings.urls (i.e. the # in the listings app)
     path('listings/', include('listings.urls')),
-    # Create accounts
+    # Bring accounts into the main urls.py. This means that anything with accounts slash, we will include the accounts urls
     path('accounts/', include('accounts.urls')),
+    path('contacts/', include('contacts.urls')),
     path('admin/', admin.site.urls),
     # If we don't include this setting, things won't show up correctly
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -34,6 +34,7 @@ def index(request):
     return render(request, 'listings/listings.html', context)
 
 def listing(request, listing_id):
+
     # Instead of Listings.objects, we use get_object_or_404(), which calls get() on a given model manager, but raises Http404 instead of the model's DoesNotExist exception
     # If you do not do this, the app could crash if a user searched for a listing in the url paramater that did not exist
     # https://docs.djangoproject.com/en/3.0/topics/http/shortcuts/
