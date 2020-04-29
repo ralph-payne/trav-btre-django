@@ -119,12 +119,25 @@ dmypy.json
 
 # Resources
 /btre_resources
+/static
 
 # Own Notes
 .vscode/
 /bootstrap-theme
-proj-1-notes.md
 
 # venv
 /venv
 /photos
+
+
+# Traversy
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+/media
+venv
+/static
+.vscode
