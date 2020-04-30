@@ -43,9 +43,11 @@ def listing(request, listing_id):
     # You also need to bring in get_object_or_404 at the top (it's from django shortcuts)
 
     one_listing = get_object_or_404(Listing, pk=listing_id)
+    
     context = {
         'one_listing': one_listing
     }
+    
     return render(request, 'listings/listing.html', context)
 
 def search(request):

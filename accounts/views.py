@@ -3,6 +3,8 @@ from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
+from contacts.models import Contact
+
 # When the requests get submitted, we need to identify if we are seeing a GET or POST request
 
 def login(request):
@@ -38,9 +40,6 @@ def logout(request):
         auth.logout(request)
         messages.success(request, 'You are now logged out')
         return redirect('index')
-
-def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
 
 def register(request):
     if request.method == 'POST':
@@ -89,3 +88,25 @@ def register(request):
 
     else:
         return render(request, 'accounts/register.html')
+
+    
+def dashboard(request):
+        
+    # Check to see if user is logged in (same logic as contacts/views.py)
+    if request.user.is_authenticated:
+        # If the user is logged in, then grab their id from the request (this is an hidden input on the form)
+        user_id = request.user.id
+
+        # Retrieve all contacts (to do this you need to bring in the Contact model)
+        user_contacts = Contact.objects.all().order_by('-contact_date').filter(user_id=user_id)
+
+        # Pass contacts into a context dictionary
+        context = {
+            'contacts': user_contacts
+        }         
+
+        # Return dashboard and pass in the context
+        return render(request, 'accounts/dashboard.html', context)
+    
+    else:
+        return redirect('register')

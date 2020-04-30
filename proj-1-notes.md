@@ -1,3 +1,9 @@
+*Note to self: Find out best way of hiding passwords, i.e. what is the Django equivalent of a dot env file?*
+*Note to self: A data breach on your site exposed your password. Chrome recommends changing your password* => You normally get this error if you give the password as the same as the username
+
+*Note to self: Work out best practices for different headers*
+*Note to self: Work out best practices for notes to self*
+
 source ./venv/Scripts/activate && pip freeze && python manage.py runserver
 $ source ./venv/Scripts/activate && pip freeze && python manage.py runserver
 
@@ -2528,3 +2534,66 @@ Make sure you have done the following
 - You might also need to unlock captcha in your google account from which you wish to send emails. Search for google display unlock captcha and open the first link that appears. Then press the continue button.
 
 *Note: you need to hide your password. It is currently EMAIL_HOST_PASSWORD = '******'
+
+### Making the Dashboard Dynamic
+1. In views.py we want reach in to the database and get the contacts/inqueries for a certain user; we can do this with request.user
+2. Bring in the Contact model `from contacts.models import Contact`
+3. Order `order_by('-contact_date')` the fetched contacts & filter `filter(user_id=user_id)` them by user_id
+4. In dashboard.html, make the name dynamic `<h2>Welcome {{user.first_name}} </h2>`
+5. Create if statement `{% if contacts %}`
+6. Wrap the inquiries in a for loop `{% for one_contact in contacts %}`
+7. Make the href dynamic `href="{% url 'listing' one_contact.listing_id %}"`
+
+Note, with the user object, you don't need to pass it in through views. With Django, you can use that object anywhere.
+
+```html templates/dashboard.html
+...
+        {% for one_contact in contacts %}
+            <tr>
+                <td> {{ one_contact.id }} </td>
+                <td> {{ one_contact.listing }} </td>
+                <td>
+                <a class="btn btn-light" href="{% url 'listing' one_contact.listing_id %}">View Listing</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% else %}
+    <p>You have not made any inquiries</p> 
+{% endif %}
+```
+
+```py contacts/views.py
+def dashboard(request):
+        
+    # Check to see if user is logged in (same logic as contacts/views.py)
+    if request.user.is_authenticated:
+        # If the user is logged in, then grab their id from the request (this is an hidden input on the form)
+        user_id = request.user.id
+
+        # Retrieve all contacts (to do this you need to bring in the Contact model)
+        user_contacts = Contact.objects.all().order_by('-contact_date').filter(user_id=user_id)
+
+        # Pass contacts into a context dictionary
+        context = {
+            'contacts': user_contacts
+        }         
+
+        # Return dashboard and pass in the context
+        return render(request, 'accounts/dashboard.html', context)
+    
+    else:
+        return redirect('register')
+```
+
+# Uploading to 
+We now need to deploy the application to the internet.
+Deploying with Python is a lot more difficult than deploying with PHP
+
+We will use Digital Ocean. Digital Ocean offer Virtual Private Servers, called droplets. Droplets are instances of Linux distributions. We will be using Ubuntu
+We will have to recreate a lot of the stuff we did on our virtual machine (i.e. set up Django, set up Postgres on our remote machine). We will use git to transfer all of our files to the server.
+
+
+*What is a Droplet*
