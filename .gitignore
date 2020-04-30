@@ -141,3 +141,10 @@ db.sqlite3
 venv
 /static
 .vscode
+
+# Deployment
+django_deployment_to_ubuntu_18.04_trav_notes.md
+deployment-own-notes.md
+
+# Settings for Deployment
+settings.md

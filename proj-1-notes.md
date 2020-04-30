@@ -3,6 +3,7 @@
 
 *Note to self: Work out best practices for different headers*
 *Note to self: Work out best practices for notes to self*
+*Note to self: best practice for questions/doubts?*
 
 source ./venv/Scripts/activate && pip freeze && python manage.py runserver
 $ source ./venv/Scripts/activate && pip freeze && python manage.py runserver
@@ -13,7 +14,7 @@ $ source ./venv/Scripts/activate && pip freeze && python manage.py runserver
 **Note to self - remove the static files from git**
 **Note to self - have a look at this https://www.toptal.com/designers/htmlarrows/**
 
-**Notes to transfer to different cribs**
+#Notes to transfer to different cribs
 
 `Bootstrap`
 **Bootstrap CDN or locally?**
@@ -28,6 +29,12 @@ Stack Overflow recommends that you include the CDN and then the local file as a 
 
 `Git Deployment`
 git reset will unstage all the files you added after your last commit. This is useful for when you accidentally called git add -A and want to undo that action
+Brad has his SSL keys set up for github - what does this mean?
+
+```bash
+Check what you have inside .gitignore
+cat .gitignore
+```
 
 `Google Chrome`
 Create a crib for Chrome
@@ -2595,5 +2602,18 @@ Deploying with Python is a lot more difficult than deploying with PHP
 We will use Digital Ocean. Digital Ocean offer Virtual Private Servers, called droplets. Droplets are instances of Linux distributions. We will be using Ubuntu
 We will have to recreate a lot of the stuff we did on our virtual machine (i.e. set up Django, set up Postgres on our remote machine). We will use git to transfer all of our files to the server.
 
+We will have a localsettings file for sensitive data
+Will use use Gunicorn to serve our project on port 8000
+Will use use NGINX to to serve it on port 80 (as a proxy)
 
-*What is a Droplet*
+*Question/Doubt: What is a Droplet*
+
+### Uploading to Github
+Best practice to use underscores, not hyphens
+Best practice is to initially make the repo private
+
+Check what you have in .gitignore
+cat .gitignore
+
+### Gist
+https://help.github.com/en/enterprise/2.13/user/articles/about-gists
