@@ -161,3 +161,10 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'ralphpaynecode@gmail.com'
 EMAIL_HOST_PASSWORD = '******'
 EMAIL_USE_TLS = True
+
+try:
+    # From local_settings folder (which will be on the production server), import ALL (*)
+    from .local_settings import *
+    # Except on Import Error we want to pass (i.e. if we don't find that file, do nothing)
+except ImportError:
+    pass
