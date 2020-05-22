@@ -2595,25 +2595,5 @@ def dashboard(request):
         return redirect('register')
 ```
 
-# Uploading to 
-We now need to deploy the application to the internet.
-Deploying with Python is a lot more difficult than deploying with PHP
-
-We will use Digital Ocean. Digital Ocean offer Virtual Private Servers, called droplets. Droplets are instances of Linux distributions. We will be using Ubuntu
-We will have to recreate a lot of the stuff we did on our virtual machine (i.e. set up Django, set up Postgres on our remote machine). We will use git to transfer all of our files to the server.
-
-We will have a localsettings file for sensitive data
-Will use use Gunicorn to serve our project on port 8000
-Will use use NGINX to to serve it on port 80 (as a proxy)
-
-*Question/Doubt: What is a Droplet*
-
-### Uploading to Github
-Best practice to use underscores, not hyphens
-Best practice is to initially make the repo private
-
-Check what you have in .gitignore
-cat .gitignore
-
-### Gist
-https://help.github.com/en/enterprise/2.13/user/articles/about-gists
+# Uploading to Digital Ocean
+Go to the DevOps crib to see the walkthrough for deploying to Digital Ocean
