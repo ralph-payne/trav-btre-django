@@ -25,6 +25,7 @@ photo_4: STR
 photo_5: STR
 photo_6: STR
 
+
 ### REALTOR
 id: INT <all tables will have an id>
 name: STR
@@ -34,6 +35,7 @@ email: STR
 phone: STR <phone numbers should always be strings>
 is_mvp: BOOL [0] <this is the seller of the month>
 hire_date: DATE
+
 
 ### CONTACT
 id: INT
